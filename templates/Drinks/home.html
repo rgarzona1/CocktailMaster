@@ -1,0 +1,31 @@
+{%extends 'general.html'%}
+{% load static %}
+
+{% block content %}
+    <div class="image-header">
+        <div class="overlay">
+            <h2>¿Qué quieres probar hoy?</h2>
+            <p>Explora los mejores cócteles del mundo</p>
+        </div>
+    </div>
+
+    <section class="destacados">
+        <h3>Cocktails destacados</h3>
+
+        <div class="grid-cocktails">
+            {% for cocktail in destacados %}
+            <div class="card-cocktail">
+                <img src="{{ cocktail.imagen }}" alt="{{ cocktail.nombre }}">
+                <h4>{{ cocktail.nombre }}</h4>
+                <p class="categoria">{{ cocktail.categoria }}</p>
+                <details>
+                    <summary>Ver más</summary>
+                    <p>{{ cocktail.instrucciones }}</p>
+                </details>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+
+{% endblock %}
