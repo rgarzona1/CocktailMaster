@@ -8,24 +8,123 @@
             <p>Explora los mejores cócteles del mundo</p>
         </div>
     </div>
-
-    <section class="destacados">
-        <h3>Cocktails destacados</h3>
-
-        <div class="grid-cocktails">
-            {% for cocktail in destacados %}
-            <div class="card-cocktail">
-                <img src="{{ cocktail.imagen }}" alt="{{ cocktail.nombre }}">
-                <h4>{{ cocktail.nombre }}</h4>
-                <p class="categoria">{{ cocktail.categoria }}</p>
-                <details>
-                    <summary>Ver más</summary>
-                    <p>{{ cocktail.instrucciones }}</p>
-                </details>
+    <section class="categorias">
+        <h1>Pick your poison</h1>
+        <p>Descubre cocktails clasificados por tipo de alcohol</p>
+        <br>
+        <div class="grid-categorias">
+            <div class="card-categoria">
+                <img src="{% static 'img/tequila.jpg' %}" alt="Cocktails Clásicos">
+                <div class="layer"></div>
+                <div class="info">
+                    <h1>Tequila</h1>
+                    <p>
+                        lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                        nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
+                    </p>
+                    <button>Explorar</button>
+                </div>
             </div>
-            {% endfor %}
+            <div class="card-categoria">
+                <img src="{% static 'img/whiskey.jpg' %}" alt="Categoria Whiskey">
+                <div class="layer"></div>
+                <div class="info">
+                    <h1>Whiskey</h1>
+                    <p>
+                        lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                        nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
+                    </p>
+                    <button>Explorar</button>
+                </div>
+            </div>
+            <div class="card-categoria">
+                <img src="{% static 'img/vodka.jpg' %}" alt="Categoria Vodka">
+                <div class="layer"></div>
+                <div class="info">
+                    <h1>Vodka</h1>
+                    <p>
+                        lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                        nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
+                    </p>
+                    <button>Explorar</button>
+                </div>
+            </div>
+            <div class="card-categoria">
+                <img src="{% static 'img/rum.jpg' %}" alt="Categoria Ron">
+                <div class="layer"></div>
+                <div class="info">
+                    <h1>Ron</h1>
+                    <p>
+                        lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                        nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
+                    </p>
+                    <button>Explorar</button>
+                </div>
+            </div>
+            <div class="card-categoria">
+                <img src="{% static 'img/gin.jpg' %}" alt="Categoria Gin">
+                <div class="layer"></div>
+                <div class="info">
+                    <h1>Gin</h1>
+                    <p>
+                        lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                        nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
+                    </p>
+                    <button>Explorar</button>
+                </div>
+            </div>
+        </div>
+        <div class="boton-ver-mas"><button class="ver-todas">Ver todas las categorías</button> </div>
+        
+    </section>
+    <section class="destacados">
+        
+        <div class="destacados-left">
+            <div class="grid-cocktails" id="cocktails-container">
+
+            </div>
+        </div>
+
+        <div class="title-random">
+            <h1>Prueba tu suerte</h1>
+            <p>Deja que el destino elija por ti...</p>
+            <button class="boton-al-azar" id="btn-refresh">Al Azar</button>
         </div>
 
     </section>
+
+
+
+
+    <script>
+        async function cargarCocktails() {
+            const response = await fetch("{% url 'obtener_cocktails' %}");
+            const data = await response.json();
+            const container = document.getElementById("cocktails-container");
+
+            container.innerHTML = ""; // limpiar el contenido anterior
+
+            data.destacados.forEach(c => {
+                const card = document.createElement("div");
+                card.classList.add("card-cocktail");
+                card.innerHTML = `
+                    <img src="${c.imagen}" alt="${c.nombre}">
+                    <h4>${c.nombre}</h4>
+                    <p class="categoria">${c.categoria}</p>
+                    <details>
+                        <summary>Ver más</summary>
+                        <p>${c.instrucciones}</p>
+                    </details>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Evento al hacer clic en el botón
+        document.getElementById("btn-refresh").addEventListener("click", cargarCocktails);
+
+        // Cargar automáticamente al entrar
+        window.addEventListener("DOMContentLoaded", cargarCocktails);
+    </script>
 
 {% endblock %}
