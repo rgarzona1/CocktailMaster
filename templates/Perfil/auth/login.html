@@ -1,0 +1,19 @@
+{% extends 'general.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Iniciar sesión</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn-auth" type="submit">Ingresar</button>
+    </form>
+
+    <p>¿No tienes cuenta?
+        <a href="{% url 'register' %}">Regístrate aquí</a>
+    </p>
+</div>
+{% endblock %}
