@@ -1,0 +1,83 @@
+{% extends "general.html "%}
+{% load static %}
+
+{% block content %}
+
+<div class="crear-receta-container">
+    <h2>Crear Nueva Receta</h2>
+
+    <form id="formCrearReceta" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <label >Nombre del cóctel</label>
+        {{ form.nombre }}
+
+        <label >Descripción</label>
+        {{ form.descripcion }}
+
+        <label>Tipo de cóctel</label>
+        {{ form.tipo }}
+
+        <label >Ingredientes</label>
+        {{ form.ingredientes }}
+
+        <label >Preparación</label>
+        {{ form.preparacion }}
+
+        <label >Imagen (opcional)</label>
+        {{ form.imagen }}
+
+        <img id="preview" class="preview-imagen" alt="Vista previa">
+
+        <button class="btn-primario" type="submit">Guardar Receta</button>
+    </form>
+</div>
+<script>
+/* Vista previa de imagen */
+document.getElementById("id_imagen")?.addEventListener("change", function(){
+    const file = this.files[0];
+    const preview = document.getElementById("preview");
+
+    if(file){
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    }
+});
+
+/* Manejo del formulario para enviar datos con API REST */
+document.getElementById("formCrearReceta").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const form = this;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch("{% url 'api_recetas_creadas' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            console.log(error);
+            alert("Error al crear receta.");
+            return;
+        }
+
+        const data = await response.json();
+        console.log("Receta creada:", data);
+
+        window.location.href = "{% url 'perfil_dashboard' %}";
+
+    } catch (err) {
+        console.error(err);
+        alert("Hubo un error en la conexión.");
+    }
+});
+</script>
+
+{% endblock %}

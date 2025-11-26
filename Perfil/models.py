@@ -55,3 +55,15 @@ class RecetaGuardada(models.Model):
 
     def __str__(self):
         return f"{self.nombre} (guardada por {self.usuario.username})"
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=150, blank=True)
+    bio = models.TextField(blank=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    banner = models.ImageField(upload_to='banners/', blank=True, null=True)
+
+    def __str__(self):
+        return self.full_name or self.user.username
+    

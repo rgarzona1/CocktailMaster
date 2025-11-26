@@ -1,0 +1,119 @@
+{% extends 'general.html' %}
+{% load static %}
+
+{% block content %}
+<section class="perfil-dashboard">
+
+ 
+    <div class="perfil-header">
+        <div class="perfil-banner"></div>
+
+        <div class="perfil-header-content">
+            <div class="perfil-avatar">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="Foto de perfil">
+                {% else %}
+                    <img src="{% static 'img/profile_pic.jpg' %}" alt="Foto default">
+                {% endif %}
+
+            </div>
+
+            <div class="perfil-info">
+                <h2>{{ profile.full_name|default:request.user.username }}</h2>
+                <p class="perfil-username">@{{ request.user.username }}</p>
+                <p class="perfil-descripcion">
+                    {{ profile.bio|default:"Agrega una breve descripción sobre ti y tus cócteles favoritos." }}
+                </p>
+            </div>
+
+            <div class="perfil-acciones">
+                <a href="{% url 'crear_receta' %}" class="btn-primario">
+                    Nueva receta
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="perfil-contenido-grid">
+
+        <!-- ÚLTIMAS CREACIONES -->
+        <section class="panel-recetas">
+            <div class="panel-header">
+                <h3>Tus últimas creaciones</h3>
+                <a href="" class="link-ver-mas">Ver todas</a>
+            </div>
+
+            <div class="panel-body" id="lista-creaciones">
+                <!-- Se rellena con JS usando la API /api/mis-creaciones/ -->
+                <p class="texto-placeholder">Aún no has creado ninguna receta.</p>
+            </div>
+        </section>
+
+        <!-- RECETAS GUARDADAS -->
+        <section class="panel-recetas">
+            <div class="panel-header">
+                <h3>Recetas guardadas</h3>
+
+                <a href='' class="link-ver-mas">Ver todas</a>
+            </div>
+
+            <div class="panel-body" id="lista-guardadas">
+
+                <p class="texto-placeholder">Aún no has guardado ninguna receta.</p>
+            </div>
+        </section>
+
+    </div>
+</section>
+
+<script>
+const URL_CREACIONES = "{% url 'api_mis_creaciones' %}";
+const URL_GUARDADAS = "{% url 'api_recetas_guardadas' %}";
+
+function crearCardReceta(receta) {
+    return `
+        <article class="card-receta">
+            <div class="card-receta-img">
+                <img src="${receta.imagen || ''}" alt="${receta.nombre}">
+            </div>
+            <div class="card-receta-info">
+                <h4>${receta.nombre}</h4>
+                <p>${receta.descripcion || ''}</p>
+            </div>
+        </article>
+    `;
+}
+
+async function cargarPanel(url, contenedorId) {
+    const contenedor = document.getElementById(contenedorId);
+
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Error al obtener datos');
+        const data = await res.json();
+
+
+        const recetas = Array.isArray(data) ? data : (data.results || []);
+
+        if (!recetas.length) {
+            contenedor.innerHTML = '<p class="texto-placeholder">No hay recetas aún.</p>';
+            return;
+        }
+
+        contenedor.innerHTML = recetas
+            .slice(0, 3) // solo 3 últimas
+            .map(crearCardReceta)
+            .join('');
+    } catch (error) {
+        contenedor.innerHTML = '<p class="texto-error">No se pudieron cargar las recetas.</p>';
+        console.error(error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    cargarPanel(URL_CREACIONES, 'lista-creaciones');
+    cargarPanel(URL_GUARDADAS, 'lista-guardadas');
+});
+</script>
+
+{% endblock %}

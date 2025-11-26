@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import User, RecetaCreada
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 
@@ -49,3 +49,10 @@ class CustomLoginForm(forms.Form):
 
     def get_user(self):
         return self.user
+
+class crearRecetaForm(forms.ModelForm):
+    class Meta:
+        model = RecetaCreada
+        fields = ['nombre', 'descripcion','tipo','ingredientes','preparacion', 'imagen']
+    
+    
