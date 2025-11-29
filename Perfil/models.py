@@ -22,6 +22,7 @@ class RecetaCreada(models.Model):
         related_name='recetas_creadas'
     )
 
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=150)
     descripcion = models.TextField()
     tipo = models.CharField(max_length=100)  

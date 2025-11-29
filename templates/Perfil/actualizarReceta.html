@@ -1,0 +1,125 @@
+{% extends "general.html"%}
+{% load static %}
+
+{% block content %}
+
+<div class="crear-receta-container">
+    <h2>Actualizar Receta</h2>
+
+    <form id="formCrearReceta" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <label >Nombre del cóctel</label>
+        {{ form.nombre }}
+
+        <label >Descripción</label>
+        {{ form.descripcion }}
+
+        <label>Tipo de cóctel</label>
+        {{ form.tipo }}
+
+        <label >Ingredientes</label>
+        {{ form.ingredientes }}
+
+        <label >Preparación</label>
+        {{ form.preparacion }}
+
+        <label >Imagen (opcional)</label>
+        {{ form.imagen }}
+
+        <img id="preview" class="preview-imagen" alt="Vista previa">
+
+        <button class="btn-primario" type="submit">Actualizar Receta</button>
+    </form>
+
+</div>
+<script>
+
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // ¿Coincide el nombre?
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+    document.addEventListener("DOMContentLoaded", async () => {
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    const recetaId = pathParts[pathParts.length - 2];
+    const url = `/perfil/api/recetas-creadas/${recetaId}/`;
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        // Rellenar campos
+        document.getElementById("id_nombre").value = data.nombre;
+        document.getElementById("id_descripcion").value = data.descripcion;
+        document.getElementById("id_tipo").value = data.tipo;
+        document.getElementById("id_ingredientes").value = data.ingredientes;
+        document.getElementById("id_preparacion").value = data.preparacion;
+
+        // Imagen actual
+        if (data.imagen) {
+            const preview = document.getElementById("preview");
+            preview.src = data.imagen;
+            preview.style.display = "block";
+        }
+
+    } catch (err) {
+        console.error("Error cargando receta:", err);
+    }
+ });
+
+
+    document.getElementById("formCrearReceta").addEventListener("submit", async e => {
+    e.preventDefault();
+
+        const pathParts = window.location.pathname.split("/").filter(Boolean);
+        const recetaId = pathParts[pathParts.length - 2];
+        const url = `/perfil/api/recetas-creadas/${recetaId}/`;
+        const token = localStorage.getItem("access");
+        const csrftoken = getCookie("csrftoken");
+
+        const formData = new FormData();
+        formData.append("nombre", document.getElementById("id_nombre").value);
+        formData.append("descripcion", document.getElementById("id_descripcion").value);
+        formData.append("tipo", document.getElementById("id_tipo").value);
+        formData.append("ingredientes", document.getElementById("id_ingredientes").value);
+        formData.append("preparacion", document.getElementById("id_preparacion").value);
+
+        const imagen = document.getElementById("id_imagen").files[0];
+        if (imagen) {
+            formData.append("imagen", imagen);
+        }
+
+        try {
+            const res = await fetch(url, {
+                method: "PATCH",
+                headers: {
+                    "X-CSRFToken": csrftoken    
+                },
+                body: formData
+            });
+
+            if (res.ok) {
+                window.location.href = "/perfil/dashboard/";
+            } else {
+                console.error(await res.text());
+            }
+        } catch (err) {
+            console.error("Error actualizando receta:", err);
+        }
+    });
+
+</script>
+{%endblock %}
+

@@ -1,0 +1,38 @@
+{% extends 'general.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-receta-detalle">
+
+    <a href="{% url 'perfil_dashboard' %}" class="btn-secundario" style="margin-bottom:15px;">
+        ⬅ Volver
+    </a>
+
+    <h2 id="titulo" class="titulo-receta"></h2>
+
+    <img id="imagen" class="imagen-receta" style="display:none; margin-top:15px; border-radius:10px; max-width:100%;">
+
+    <p class="texto-fecha">
+        <strong>Fecha:</strong> <span id="fecha"></span>
+    </p>
+
+    <h3 class="subtitulo">Descripción</h3>
+    <p id="descripcion"></p>
+
+    <h3 class="subtitulo">Ingredientes</h3>
+    <p id="ingredientes"></p>
+
+    <h3 class="subtitulo">Preparación</h3>
+    <p id="preparacion"></p>
+
+    <div class="acciones-receta" style="margin-top:25px; display:flex; gap:15px;">
+        <button id="btnEditar" class="btn-primario">✏ Editar</button>
+        <button id="btnEliminar" class="btn-peligro">🗑 Eliminar</button>
+    </div>
+
+</div>
+
+<script src="{% static 'js/receta-detalle.js' %}"></script>
+
+
+{% endblock %}

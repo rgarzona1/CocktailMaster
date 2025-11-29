@@ -77,7 +77,7 @@ function crearCardReceta(receta) {
                 <img src="${receta.imagen || ''}" alt="${receta.nombre}">
             </div>
             <div class="card-receta-info">
-                <h4>${receta.nombre}</h4>
+                <h4><a href="/perfil/recetas-creadas/${receta.id}/" class="link-receta">${receta.nombre}</a></h4>
                 <p>${receta.descripcion || ''}</p>
             </div>
         </article>

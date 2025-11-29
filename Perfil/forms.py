@@ -54,5 +54,11 @@ class crearRecetaForm(forms.ModelForm):
     class Meta:
         model = RecetaCreada
         fields = ['nombre', 'descripcion','tipo','ingredientes','preparacion', 'imagen']
-    
-    
+        widgets = {
+            'nombre': forms.TextInput(attrs={'id': 'id_nombre'}),
+            'descripcion': forms.Textarea(attrs={'id': 'id_descripcion'}),
+            'tipo': forms.TextInput(attrs={'id': 'id_tipo'}),
+            'ingredientes': forms.Textarea(attrs={'id': 'id_ingredientes'}),
+            'preparacion': forms.Textarea(attrs={'id': 'id_preparacion'}),
+            'imagen': forms.ClearableFileInput(attrs={'id': 'id_imagen'}),
+        }

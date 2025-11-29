@@ -1,6 +1,9 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+
+from Perfil.serializers import CreatedRecipeSerializer
 from .models import RecetaCreada, RecetaGuardada, User, UserProfile
 from rest_framework import serializers
 from django.shortcuts import render, get_object_or_404
@@ -49,3 +52,18 @@ def perfil_dashboard(request):
 def crear_receta(request):
     form = crearRecetaForm()
     return render(request, "Perfil/crearReceta.html", {"form": form})
+
+@login_required
+def receta_detalle_view(request, pk):
+    return render(request, "Perfil/receta-detalle.html", {"receta_id": pk})
+
+def receta_detalle_api(request, pk):
+    receta = get_object_or_404(RecetaCreada, pk=pk)
+    serializer = CreatedRecipeSerializer(receta)
+    return JsonResponse(serializer.data, safe=False)
+
+@login_required
+def editar_receta_view(request,pk):
+    form = crearRecetaForm()
+    return render(request, "Perfil/actualizarReceta.html", { "receta_id": pk, "form": form })
+    
