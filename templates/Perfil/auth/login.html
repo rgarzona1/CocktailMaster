@@ -7,6 +7,7 @@
 
     <form method="POST">
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next|default:'' }}">
         {{ form.as_p }}
 
         <button class="btn-auth" type="submit">Ingresar</button>

@@ -1,14 +1,15 @@
 # forms.py
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, RecetaCreada
+from .models import User, RecetaCreada, UserProfile
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 
 class CustomRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True, label="Nombre")
     last_name = forms.CharField(required=True, label="Apellido")
+    avatar = forms.ImageField(required=False, label="Foto de perfil")
 
     class Meta:
         model = User
@@ -17,7 +18,6 @@ class CustomRegisterForm(UserCreationForm):
             'email',
             'first_name',
             'last_name',
-            'foto_perfil',
             'password1',
             'password2'
         ]
@@ -62,3 +62,10 @@ class crearRecetaForm(forms.ModelForm):
             'preparacion': forms.Textarea(attrs={'id': 'id_preparacion'}),
             'imagen': forms.ClearableFileInput(attrs={'id': 'id_imagen'}),
         }
+
+User = get_user_model()
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = [ 'bio', 'avatar', 'banner']

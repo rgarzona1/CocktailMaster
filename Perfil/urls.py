@@ -18,5 +18,6 @@ urlpatterns = [
         path("recetas-creadas/<int:pk>/", views.receta_detalle_view, name="receta_detalle"),
         path('api/recetas-creadas/<int:pk>/detalle/', views.receta_detalle_api, name='api_receta_detalle_json'),
         path("recetas-creadas/<int:pk>/editar/", views.editar_receta_view, name="editar_receta"),
+        path('perfil/editar/', views.editar_perfil, name='editar_perfil'),
 
     ]

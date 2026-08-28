@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'CocktailMaster.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'COCKTAIL_MASTER_DB',
+        'NAME': 'cocktail_master_db',
         'USER': 'root',
         'PASSWORD': 'Sisniega.1'
     }
@@ -106,6 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'Perfil.User'
+LOGIN_URL = '/perfil/login/'
 
 
 

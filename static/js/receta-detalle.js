@@ -26,7 +26,7 @@ if (!recetaId) {
 }
 
 
-//Cargar receta desde tu API
+//Cargar receta desde API
 
 async function cargarReceta() {
     try {

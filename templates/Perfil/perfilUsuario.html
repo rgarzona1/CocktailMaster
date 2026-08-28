@@ -6,7 +6,9 @@
 
  
     <div class="perfil-header">
-        <div class="perfil-banner"></div>
+        <div class="perfil-banner" {% if profile.banner %}style="background-image: url('{{ profile.banner.url }}')"{% else %}style="background-image: url('{% static 'img/default_banner.jpg' %}')"{% endif %}>
+            <a href="{% url 'editar_perfil' %}" class="editar-perfil-btn" aria-label="Editar perfil" title="Editar perfil">&#9998;</a>
+        </div>
 
         <div class="perfil-header-content">
             <div class="perfil-avatar">
@@ -15,7 +17,7 @@
                 {% else %}
                     <img src="{% static 'img/profile_pic.jpg' %}" alt="Foto default">
                 {% endif %}
-
+            
             </div>
 
             <div class="perfil-info">

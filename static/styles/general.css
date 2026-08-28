@@ -102,9 +102,24 @@ header a:hover {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
+.header-buttons button svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: var(--color-blanco);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    pointer-events: none;
+}
+
 .header-buttons button:hover {
     transform: scale(1.1);
     background-color: var(--color-dorado);
+}
+
+.home_title {
+    cursor: pointer;
 }
 
 /* === Contenido principal === */
@@ -518,6 +533,54 @@ footer p {
     background-image: url('../img/headerimg.jpg'); 
     background-size: cover;
     background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Botón flotante */
+.editar-banner-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0,0,0,0.55);
+    color: white;
+    padding: 6px 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    backdrop-filter: blur(3px);
+    transition: background .2s ease;
+}
+
+.editar-banner-btn:hover {
+    background: rgba(0,0,0,0.75);
+}
+
+.perfil-banner .editar-perfil-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px !important;
+    left: auto !important;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.72);
+    color: #222;
+    border-radius: 6px;
+    font-size: 22px;
+    line-height: 1;
+    text-decoration: none;
+    backdrop-filter: blur(3px);
+    transition: background .2s ease, transform .2s ease;
+}
+
+.perfil-banner .editar-perfil-btn:hover,
+.perfil-banner .editar-perfil-btn:focus-visible {
+    background: rgba(255,255,255,0.92);
+    transform: scale(1.05);
 }
 
 /* Contenido bajo el banner */
