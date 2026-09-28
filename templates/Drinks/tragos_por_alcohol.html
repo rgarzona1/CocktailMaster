@@ -1,0 +1,34 @@
+{% extends "general.html" %}
+
+{% block content %}
+
+<section class="tragos-page">
+
+    <h1>Cócteles con {{ alcohol|title }}</h1>
+
+    <div class="tragos-grid">
+
+        {% for trago in tragos %}
+
+            <div class="cocktail-card">
+
+                <img
+                    src="{{ trago.strDrinkThumb }}"
+                    alt="{{ trago.strDrink }}"
+                >
+
+                <h2>{{ trago.strDrink }}</h2>
+
+            </div>
+
+        {% empty %}
+
+            <p>No encontramos cócteles para este alcohol.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

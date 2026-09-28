@@ -13,7 +13,7 @@
         <p>Descubre cocktails clasificados por tipo de alcohol</p>
         <br>
         <div class="grid-categorias">
-            <div class="card-categoria">
+            <a href="{% url 'tragos_por_alcohol' 'vodka' %}" class="card-categoria">
                 <img src="{% static 'img/tequila.jpg' %}" alt="Cocktails Clásicos">
                 <div class="layer"></div>
                 <div class="info">
@@ -22,10 +22,10 @@
                         lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
                         nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
                     </p>
-                    <button>Explorar</button>
+                    <span>Explorar</span>
                 </div>
-            </div>
-            <div class="card-categoria">
+            </a>
+            <a href="{% url 'tragos_por_alcohol' 'whiskey' %}" class="card-categoria">
                 <img src="{% static 'img/whiskey.jpg' %}" alt="Categoria Whiskey">
                 <div class="layer"></div>
                 <div class="info">
@@ -34,10 +34,10 @@
                         lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
                         nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
                     </p>
-                    <button>Explorar</button>
+                    <span>Explorar</span>
                 </div>
-            </div>
-            <div class="card-categoria">
+            </a>
+            <a href="{% url 'tragos_por_alcohol' 'vodka' %}" class="card-categoria">
                 <img src="{% static 'img/vodka.jpg' %}" alt="Categoria Vodka">
                 <div class="layer"></div>
                 <div class="info">
@@ -46,10 +46,10 @@
                         lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
                         nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
                     </p>
-                    <button>Explorar</button>
+                    <span>Explorar</span>
                 </div>
-            </div>
-            <div class="card-categoria">
+            </a>
+            <a href="{% url 'tragos_por_alcohol' 'rum' %}" class="card-categoria">
                 <img src="{% static 'img/rum.jpg' %}" alt="Categoria Ron">
                 <div class="layer"></div>
                 <div class="info">
@@ -58,10 +58,10 @@
                         lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
                         nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
                     </p>
-                    <button>Explorar</button>
+                    <span>Explorar</span>
                 </div>
-            </div>
-            <div class="card-categoria">
+            </a>
+            <a href="{% url 'tragos_por_alcohol' 'gin' %}" class="card-categoria">
                 <img src="{% static 'img/gin.jpg' %}" alt="Categoria Gin">
                 <div class="layer"></div>
                 <div class="info">
@@ -70,9 +70,9 @@
                         lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
                         nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
                     </p>
-                    <button>Explorar</button>
+                    <span>Explorar</span>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="boton-ver-mas"><button class="ver-todas">Ver todas las categorías</button> </div>
         
