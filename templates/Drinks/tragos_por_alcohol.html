@@ -4,26 +4,50 @@
 
 <section class="tragos-page">
 
-    <h1>Cócteles con {{ alcohol|title }}</h1>
+     <div class="tragos-header">
+        <p class="tragos-subtitle">PICK YOUR POISON</p>
 
+        <h1>Cócteles con {{ alcohol|title }}</h1>
+
+        <p>
+            Explora nuestra selección de cócteles preparados con {{ alcohol|title }}.
+        </p>
+    </div>
+    
     <div class="tragos-grid">
 
         {% for trago in tragos %}
 
-            <div class="cocktail-card">
+            <article class="trago-card">
 
-                <img
-                    src="{{ trago.strDrinkThumb }}"
-                    alt="{{ trago.strDrink }}"
-                >
+                <div class="trago-card-image">
+                    <img 
+                        src="{{ trago.strDrinkThumb }}"
+                        alt="{{ trago.strDrink }}"
+                    >
+                </div>
 
-                <h2>{{ trago.strDrink }}</h2>
+                <div class="trago-card-content">
 
-            </div>
+                    <h2>{{ trago.strDrink }}</h2>
+
+                    <p>
+                        Un cóctel preparado con {{ alcohol|title }},
+                        ideal para descubrir nuevos sabores.
+                    </p>
+
+                </div>
+
+            </article>
 
         {% empty %}
 
-            <p>No encontramos cócteles para este alcohol.</p>
+            <div class="sin-resultados">
+                <h2>No encontramos cócteles</h2>
+                <p>
+                    No encontramos cócteles preparados con {{ alcohol|title }}.
+                </p>
+            </div>
 
         {% endfor %}
 
