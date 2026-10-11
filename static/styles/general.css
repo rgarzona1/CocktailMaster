@@ -1129,3 +1129,60 @@ textarea {
     }
 
 }
+
+
+/* Buscador de cócteles */
+
+.buscador-tragos {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 35px;
+}
+
+.buscador-tragos label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.buscador-tragos input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 18px;
+
+    border: 1px solid #d8d5c8;
+    border-radius: 10px;
+    background: #ffffff;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.buscador-tragos input:focus {
+    border-color: #afad7d;
+    box-shadow: 0 0 0 3px rgba(175, 173, 125, 0.2);
+}
+
+/* Ocultar tarjetas que no coinciden */
+
+.trago-card[hidden] {
+    display: none;
+}
+
+/* Mensaje de búsqueda sin coincidencias */
+
+#sin-resultados-busqueda {
+    margin: 30px auto;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #555555;
+}
+
+#sin-resultados-busqueda[hidden] {
+    display: none;
+}

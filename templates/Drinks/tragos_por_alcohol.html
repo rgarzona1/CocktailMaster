@@ -13,6 +13,15 @@
             Explora nuestra selección de cócteles preparados con {{ alcohol|title }}.
         </p>
     </div>
+    <div class="buscador-tragos">
+        <label for="buscar-trago">Buscar cóctel:</label>
+        <input type="search" 
+                id="buscar-trago" 
+                placeholder="Escribe el nombre del cóctel..." 
+                autocomplete="off" >
+    </div>
+    
+
     
     <div class="tragos-grid">
 
@@ -53,6 +62,50 @@
 
     </div>
 
+    <p id="sin-resultados-busqueda" hidden>
+    No encontramos cócteles que coincidan con tu búsqueda.
+    </p>
+
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        //obtener elementos html
+        const buscador =document.getElementById("buscar-trago");
+        const tarjetas = document.querySelectorAll(".trago-card");
+        const mensajeSinResultados = document.getElementById("sin-resultados-busqueda");
+
+        //escuchar cada cambio en campo de busqueda
+
+        buscador.addEventListener("input",function(){
+
+            //obtener texto y normalizarlo
+            const textoBusqueda = buscador.value.toLowerCase().trim();
+            let tarjetasVisibles = 0;
+
+            //recorrer todas las tarjetas
+            tarjetas.forEach(function(tarjeta){
+                const nombre = tarjeta
+                    .querySelector("h2")
+                    .textContent
+                    .trim()
+                    .toLowerCase();
+
+                    //comprobar si el nombre contiene busqueda
+                    const coincide =nombre.includes(textoBusqueda);
+
+                    //mostrar u ocultar tarjeta
+                    tarjeta.hidden=!coincide;
+
+                    if(coincide){
+                        tarjetasVisibles++;
+                    }
+            });
+            //mostrar mensaje si no hay resultados
+            mensajeSinResultados.hidden=tarjetasVisibles>0;
+        }
+        );
+    });
+</script>
 
 {% endblock %}
