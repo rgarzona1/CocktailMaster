@@ -26,28 +26,32 @@
     <div class="tragos-grid">
 
         {% for trago in tragos %}
+           <a
+                href="{% url 'detalle_coctel' trago.idDrink %}"
+                class="trago-card-link">
+                
+                <article class="trago-card">
 
-            <article class="trago-card">
+                    <div class="trago-card-image">
+                        <img 
+                            src="{{ trago.strDrinkThumb }}"
+                            alt="{{ trago.strDrink }}"
+                        >
+                    </div>
 
-                <div class="trago-card-image">
-                    <img 
-                        src="{{ trago.strDrinkThumb }}"
-                        alt="{{ trago.strDrink }}"
-                    >
-                </div>
+                    <div class="trago-card-content">
 
-                <div class="trago-card-content">
+                        <h2>{{ trago.strDrink }}</h2>
 
-                    <h2>{{ trago.strDrink }}</h2>
+                        <p>
+                            Un cóctel preparado con {{ alcohol|title }},
+                            ideal para descubrir nuevos sabores.
+                        </p>
 
-                    <p>
-                        Un cóctel preparado con {{ alcohol|title }},
-                        ideal para descubrir nuevos sabores.
-                    </p>
+                    </div>
 
-                </div>
-
-            </article>
+                </article>
+           </a>    
 
         {% empty %}
 

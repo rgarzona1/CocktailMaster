@@ -1186,3 +1186,70 @@ textarea {
 #sin-resultados-busqueda[hidden] {
     display: none;
 }
+
+.trago-card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.trago-card-link:focus-visible {
+    outline: 3px solid #afad7d;
+    outline-offset: 4px;
+    border-radius: 12px;
+}
+
+.detalle-coctel {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 0 80px;
+}
+
+.volver {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: #7a2a26;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+.detalle-coctel-contenido {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.detalle-coctel-imagen img {
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+}
+
+.detalle-coctel-info h1 {
+    font-family: 'Lora', serif;
+    font-size: 2.5rem;
+    margin-top: 0;
+}
+
+.detalle-coctel-info h2 {
+    font-family: 'Lora', serif;
+    margin-top: 30px;
+}
+
+.detalle-coctel-info p,
+.detalle-coctel-info li {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.8;
+}
+
+@media (max-width: 750px) {
+    .detalle-coctel-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .detalle-coctel-info h1 {
+        font-size: 2rem;
+    }
+}

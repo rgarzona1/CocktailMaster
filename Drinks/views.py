@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, response
 from django.shortcuts import render
 import requests
 
@@ -135,3 +135,45 @@ def tragos_por_alcohol(request, alcohol):
         }
     )
     
+def detalle_coctel(request, cocktail_id):
+    url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php"
+    
+    try:
+        response = requests.get(
+            url,
+            params={"i": cocktail_id},
+            timeout=10
+        )
+        response.raise_for_status()
+        
+        data=response.json()
+        resultados=data.get("drinks") or []
+        
+    except requests.RequestException:
+        resultados = []
+        
+        
+        
+    if not resultados:
+        return render(
+            request,
+            "Drinks/coctel_no_encontrado.html",
+            status=404  
+        )
+        
+    coctel= resultados[0]   
+    
+    ingredientes = []
+
+    for numero in range(1, 16):
+        nombre = coctel.get(f"strIngredient{numero}")
+
+        if nombre and nombre.strip():
+            ingredientes.append(nombre.strip())
+    
+    return render(
+        request,
+        "Drinks/detalle_coctel.html",
+        {"coctel": coctel,
+         "ingredientes": ingredientes}
+    )
