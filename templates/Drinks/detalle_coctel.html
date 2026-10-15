@@ -29,25 +29,45 @@
                 {{ coctel.strAlcoholic }}
             </p>
 
-            {% if coctel.strAlcoholic == "Non alcoholic" %}
-                <h2>Ingredientes</h2>
+            <button
+                type="button"
+                id="btn-guardar-receta"
+                class="btn-primario"
+                data-cocktail-id="{{ coctel.idDrink }}"
+                data-cocktail-id="{{ coctel.idDrink }}"
+                data-nombre="{{ coctel.strDrink }}"
+                data-categoria="{{ coctel.strCategory }}"
+                data-tipo="{{ coctel.strAlcoholic }}"
+                data-instrucciones="{{ coctel.strInstructions }}"
+                data-imagen="{{ coctel.strDrinkThumb }}"
 
+            >
+                Guardar receta
+            </button>
+
+            <h2>Ingredientes</h2>
+
+            {% if ingredientes %}
                 <ul>
-                    {% for ingrediente in ingredientes %}
-                        <li>{{ ingrediente }}</li>
-                    {% endfor %}
+                        {% for ingrediente in ingredientes %}
+                            <li>{{ ingrediente }}</li>
+                        {% endfor %}
                 </ul>
+            {% else %}
+                <p>No hay ingredientes disponibles para este cóctel.</p>
+            {% endif %}
 
-                <h2>Preparación</h2>
+            <h2>Preparación</h2>
+
+            {% if coctel.strInstructions %}
                 <p>{{ coctel.strInstructions }}</p>
             {% else %}
-                <p>
-                    Esta bebida contiene alcohol. Aquí puedes
-                    consultar sus datos generales y su clasificación.
-                </p>
+                <p>No hay instrucciones disponibles.</p>
             {% endif %}
 
         </div>
     </div>
 </section>
+
+<script src="{% static 'js/guardar-receta.js' %}"></script>
 {% endblock %}

@@ -15,14 +15,19 @@ class MisCreacionesList(generics.ListAPIView):      #permite listar las creacion
                 .order_by('-fecha_creacion'))
 
 
-class RecetasGuardadasList(generics.ListAPIView):     #permite listar las recetas guardadas
+class RecetasGuardadasList(generics.ListCreateAPIView):
     serializer_class = SavedRecipeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return (RecetaGuardada.objects
-                .filter(usuario=self.request.user)
-                .order_by('-fecha_guardado'))
+        return (
+            RecetaGuardada.objects
+            .filter(usuario=self.request.user)
+            .order_by('-fecha_guardado')
+        )
+
+    def perform_create(self, serializer):
+        serializer.save(usuario=self.request.user)
         
         
         
